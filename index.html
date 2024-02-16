@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OSM and Leaflet</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css" />
+</head>
+
+<body>
+    <div id="map" style="width: 640px; height: 480px"></div>
+    <script src="leaflet.js"></script>
+    <script>
+
+        function geoFindMe() {
+
+            function success(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Creating map options
+                var mapOptions = {
+                    center: [latitude, longitude],
+                    zoom: 17
+                }
+
+                // Creating a map object
+                var map = new L.map('map', mapOptions);
+
+                // Creating a Layer object
+                var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+                L.marker([latitude, longitude]).addTo(map);
+                // Adding layer to the map
+                map.addLayer(layer);
+
+            }
+
+            function error() {
+                alert("Unable to retrieve your location");
+            }
+
+            if (!navigator.geolocation) {
+                alert("Geolocation is not supported by your browser");
+            } else {
+                // status.textContent = "Locating…";
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+        }
+
+        geoFindMe()
+
+    </script>
+</body>
+
+</html>
