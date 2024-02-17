@@ -4,11 +4,15 @@
 <head>
     <title>OSM and Leaflet</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.css" />
 </head>
 
 <body>
     <div id="map" style="width: 640px; height: 480px"></div>
+    <div id="map2" style="width: 640px; height: 480px"></div>
     <script src="leaflet.js"></script>
+    <script src="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.js"></script>
+    <script src="script.js"></script>
     <script>
 
         function geoFindMe() {
