@@ -3,7 +3,7 @@ let mapOptions = {
     zoom:17
 }
 
-let map = new L.map('map2' , mapOptions);
+let map = new L.map('map3' , mapOptions);
 
 let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 L.marker([mapOptions.center[0], mapOptions.center[1]]).addTo(map);

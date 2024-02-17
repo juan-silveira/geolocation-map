@@ -16,6 +16,17 @@
             </div>
             <div class="col-md-3">
                 <div class="mt-3">
+                    <p>Sua localização: </p>
+                    <span id="city"></span>, <span id="state"></span>, <span id="country"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-9">
+                <div id="map2" style="height: 400px"></div>
+            </div>
+            <div class="col-md-3">
+                <div class="mt-3">
                     <p>Distância em metros até a StarMountain: </p>
                     <p id="d1"></p>
                     <hr>
@@ -25,14 +36,10 @@
                     <p id="d2"></p>
                     <hr>
                 </div>
-                <div class="mt-3">
-                    <p>Sua localização: </p>
-                    <span id="city"></span>, <span id="state"></span>, <span id="country"></span>
-                </div>
             </div>
         </div>
         <div class="col-md-9 mt-5">
-            <div id="map2" style="height: 400px"></div>
+            <div id="map3" style="height: 400px"></div>
         </div>
     </div>
     <script src="leaflet.js"></script>
@@ -97,15 +104,47 @@
 
             obterCidade(lat2, lon2);
 
+            //Mapa de distância
+            showDistance(lat1, lon1, lat2, lon2, d/1000);
+
             document.getElementById("d1").innerHTML = `${d.toFixed(2)} metros`;
             document.getElementById("d2").innerHTML = `${(d/1000).toFixed(2)} km`;
             return d;
         }
 
+        function showDistance(lat1, lon1, lat2, lon2, d) {
+            // Coordinates of the two points
+            var pointA = [lat1, lon1]; // Star Mountain
+            var pointB = [lat2, lon2]; // User
+
+            // Calculating the center of points A and B
+            var center = [(pointA[0] + pointB[0]) / 2, (pointA[1] + pointB[1]) / 2];
+
+            // Creating the map centered between points A and B
+            var map = L.map('map2').setView(center, d > 5000 ? 2 : d > 1000 ? 5 : d > 200 ? 10 : 15); // Set the center of the map and the zoom level
+            
+            // Adding map layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+            // Adding markers for points A and B
+            L.marker(pointA).addTo(map).bindPopup('Star Mountain');
+            L.marker(pointB).addTo(map).bindPopup('Yourself');
+
+            // Adding line between points A and B
+            var line = L.polyline([pointA, pointB], {color: 'blue'}).addTo(map);
+            
+            // Calculating and showing the distance in kilometers between the two points
+            var distance = map.distance(pointA, pointB) / 1000; // Calculate the distance in meters and convert to kilometers
+            L.popup()
+            .setLatLng(center) // Set the position of the popup as the center
+            .setContent('Distance: ' + distance.toFixed(2) + ' km') // Set the content of the popup
+            .openOn(map); // Show the popup on the map
+        }
+
         function geoFindMe() {
 
             function success(position) {
-                console.log(position);
+                // console.log(position);
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
 
