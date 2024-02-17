@@ -3,11 +3,11 @@ let mapOptions = {
     zoom:17
 }
 
-let map = new L.map('map3' , mapOptions);
+let map3 = new L.map('map3' , mapOptions);
 
 let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-L.marker([mapOptions.center[0], mapOptions.center[1]]).addTo(map);
-map.addLayer(layer);
+L.marker([mapOptions.center[0], mapOptions.center[1]]).addTo(map3);
+map3.addLayer(layer);
 
 
 let apiKey = "db7d30e444324e7a9d63346f72a079af",
@@ -34,9 +34,9 @@ const addressSearchControl = L.control.addressSearch(apiKey, {
 		}
      	
 		//add marker 
-		marker = L.marker([address.lat, address.lon]).addTo(map);
+		marker = L.marker([address.lat, address.lon]).addTo(map3);
 		//Sets the view of the map (geographical center and zoom) with the given animation options.
-		map.setView([address.lat, address.lon], 20);
+		map3.setView([address.lat, address.lon], 20);
       },
 
 
@@ -47,5 +47,5 @@ const addressSearchControl = L.control.addressSearch(apiKey, {
 });
 
 
-map.addControl(addressSearchControl);
+map3.addControl(addressSearchControl);
 
