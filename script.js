@@ -13,7 +13,6 @@ map.addLayer(layer);
 let apiKey = "db7d30e444324e7a9d63346f72a079af",
 marker = null;
 
-
 const addressSearchControl = L.control.addressSearch(apiKey, {
     position: 'topleft',
 
